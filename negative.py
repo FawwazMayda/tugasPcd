@@ -5,6 +5,7 @@ import numpy as np
 
 parser = argparse.ArgumentParser(description='Process some image.')
 parser.add_argument('--file',required=True,type=str)
+args = parser.parse_args()
 #img1 and img2 must be in same size
 img1 = cv2.imread(args.file, 1)
 img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
