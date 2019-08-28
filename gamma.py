@@ -9,7 +9,6 @@ parser.add_argument('--file',required=True,type=str)
 
 
 args = parser.parse_args()
-print(args)
 def scaled(img,gamma=0.2):
     img = np.array(img)
     invGamma  = 1 / gamma
