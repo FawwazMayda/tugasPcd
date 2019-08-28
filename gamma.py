@@ -9,18 +9,21 @@ parser.add_argument('--file',required=True,type=str)
 
 
 args = parser.parse_args()
-def scaled(img,gamma=0.2):
-    img = np.array(img)
-    invGamma  = 1 / gamma
-    img_scaled = img/255
-    img_gamma = img_scaled ** invGamma
-    img_res = img_gamma * 255
-    return img_res
+
+def adjust_gamma(image, gamma=1.0):
+	# build a lookup table mapping the pixel values [0, 255] to
+	# their adjusted gamma values
+	invGamma = 1.0 / gamma
+	table = np.array([((i / 255.0) ** invGamma) * 255
+		for i in np.arange(0, 256)]).astype("uint8")
+ 
+	# apply gamma correction using the lookup table
+	return cv2.LUT(image, table)
 
 
 #img1 and img2 must be in same size
 img1 = cv2.imread(args.file, 1)
-img2 = scaled(img1,float(args.gamma))
+img2 = adjust_gamma(img1,float(args.gamma))
 
 cv2.imshow('img1',img1)
 cv2.imshow('img2',img2)
