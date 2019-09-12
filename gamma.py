@@ -5,6 +5,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Process some image.')
 parser.add_argument('--gamma',required=True,type=float)
 parser.add_argument('--file',required=True,type=str)
+parser.add_argument('--compress',required=False,type=int,default=0)
 
 
 
@@ -23,6 +24,8 @@ def adjust_gamma(image, gamma=1.0):
 
 #img1 and img2 must be in same size
 img1 = cv2.imread(args.file, 1)
+if args.compress==True:
+	img1=cv2.resize(img1,(600,400))
 img2 = adjust_gamma(img1,float(args.gamma))
 
 cv2.imshow('img1',img1)
